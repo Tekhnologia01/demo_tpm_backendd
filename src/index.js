@@ -5,13 +5,17 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// Allow only your Azure frontend to access the backend
+app.use(cors({
+  origin: 'https://thankful-bush-0698e6510.6.azurestaticapps.net',
+  credentials: true
+}));
+
 app.use(express.json());
 app.use('/', route);
 
 const PORT = process.env.PORT || 3008;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
-
-
