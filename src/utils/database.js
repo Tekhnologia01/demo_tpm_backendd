@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+dotenv.config();
 
-// Use environment variables for better security
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'mysql.mysql.database.azure.com',
     user: process.env.DB_USER || 'tekhnologia@mysql',
@@ -14,14 +15,13 @@ const pool = mysql.createPool({
     }
 });
 
-// Test the connection when the application starts
 (async () => {
     try {
         const connection = await pool.getConnection();
-        console.log('Connected to the Azure MySQL database');
+        console.log('✅ Connected to the Azure MySQL database');
         connection.release();
     } catch (err) {
-        console.error('Database connection failed:', err.message);
+        console.error('❌ Database connection failed:', err.message);
     }
 })();
 
