@@ -1,23 +1,24 @@
-import express from 'express';
-import cors from 'cors';
 import mysql from 'mysql2/promise';
-//import route from './Routes/route.js';
 
+// Use environment variables for better security
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Aaru@2205',
-    database: 'test',
+    host: process.env.DB_HOST || 'mysql.mysql.database.azure.com',
+    user: process.env.DB_USER || 'tekhnologia@mysql',
+    password: process.env.DB_PASSWORD || 'Royal@123',
+    database: process.env.DB_NAME || 'tpm',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    ssl: {
+        rejectUnauthorized: true
+    }
 });
 
 // Test the connection when the application starts
 (async () => {
     try {
         const connection = await pool.getConnection();
-        console.log('Connected to the database');
+        console.log('Connected to the Azure MySQL database');
         connection.release();
     } catch (err) {
         console.error('Database connection failed:', err.message);
@@ -34,42 +35,3 @@ const query = async (sql, values) => {
 };
 
 export { query, pool };
-
-
-
-
-
-
-// const { createPool } = require('mysql2');
-
-// const pool = createPool({
-//     connectionLimit: 10, 
-//     host: 'mysql-1f18dca8-vijay-4507.l.aivencloud.com',
-//     port: 26139,
-//     user: 'avnadmin',
-//     password: 'AVNS_vF2SnpVUvaIcVp5n0hO',
-//     database: 'qpe'
-// });
-
-// pool.getConnection((err, connection) => {
-//     if (err) {
-//         console.error('Database connection failed:', err.message);
-//     } else {
-//         console.log('Connected to the database');
-//         connection.release();
-//     }
-// });
-
-// const query = (sql, values) => {
-//     return new Promise((resolve, reject) => {
-//         pool.query(sql, values, (err, results) => {
-//             if (err) {
-//                 reject(err);
-//                 return;
-//             }
-//             resolve(results);
-//         });
-//     });
-// };
-
-// module.exports = { query, pool };
