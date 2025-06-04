@@ -18,10 +18,10 @@ const pool = mysql.createPool({
 (async () => {
     try {
         const connection = await pool.getConnection();
-        console.log('✅ Connected to the Azure MySQL database');
+        console.log('Connected to the Azure MySQL database');
         connection.release();
     } catch (err) {
-        console.error('❌ Database connection failed:', err.message);
+        console.error('Database connection failed:', err.message);
     }
 })();
 
