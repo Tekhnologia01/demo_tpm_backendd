@@ -4,7 +4,7 @@ dotenv.config();
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'mysql.mysql.database.azure.com',
-    user: process.env.DB_USER || 'tekhnologia@mysql',
+    user: process.env.DB_USER || 'tekhnologia',
     password: process.env.DB_PASSWORD || 'Royal@123',
     database: process.env.DB_NAME || 'tpm',
     waitForConnections: true,
