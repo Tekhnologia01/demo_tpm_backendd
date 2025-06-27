@@ -22,7 +22,7 @@ const pool = mysql.createPool({
         console.log('Connected to the Azure MySQL database');
         connection.release();
     } catch (err) {
-        console.error(' Database connection failed:', err.message);
+        console.error('Database connection failed:', err.message);
     }
 })();
 
@@ -32,3 +32,9 @@ const query = async (sql, values) => {
         const [results] = await pool.query(sql, values);
         return results;
     } catch (err) {
+        console.error('Query error:', err.message);
+        throw err;
+    }
+};
+
+export { pool, query };
