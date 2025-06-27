@@ -15,7 +15,9 @@ app.use(cors({
 app.use(express.json());
 app.use('/', route);
 
-const PORT = process.env.PORT || 3008;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const PORT = process.env.PORT || 3000;
+
+// ✅ Use '0.0.0.0' as a string to allow external access
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server is running on http://0.0.0.0:${PORT}`);
 });
