@@ -9,6 +9,20 @@ const app = express();
 // Allow only your Azure frontend to access the backend
 app.use(cors({
   origin: 'https://thankful-bush-0698e6510.6.azurestaticapps.net',
+  origin: function (origin, callback) {
+  const allowedOrigins = [
+    'https://thankful-bush-0698e6510.6.azurestaticapps.net',
+    'http://localhost:3000',
+    'http://localhost:7000',
+    'http://98.70.58.117:7000'
+  ];
+  if (!origin || allowedOrigins.includes(origin)) {
+    callback(null, true);
+  } else {
+    callback(new Error('Not allowed by CORS'));
+  }
+}
+
   credentials: true
 }));
 
