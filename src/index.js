@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Proper CORS setup with allowed origins
+// ✅ Proper CORS setup including preflight support
 const allowedOrigins = [
   'https://thankful-bush-0698e6510.6.azurestaticapps.net',
   'http://localhost:3000',
@@ -15,7 +15,7 @@ const allowedOrigins = [
   'http://98.70.58.117:7000'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -23,15 +23,21 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ✅ Allow all relevant methods
+  allowedHeaders: ['Content-Type', 'Authorization'],    // ✅ Include Authorization header
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+
+// ✅ Handle preflight requests for all routes
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use('/', route);
 
 const PORT = process.env.PORT || 3000;
 
-// ✅ Listen on all network interfaces for external access
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server is running on http://0.0.0.0:${PORT}`);
 });
