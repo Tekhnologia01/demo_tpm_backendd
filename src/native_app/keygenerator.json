@@ -1,0 +1,13 @@
+{
+  "name": "com.example.keygenerator",
+    "description": "A native app to generate cryptographic keys",
+    "path": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\priti\\OneDrive\\Documents\native_app",
+ 
+    "type": "stdio",
+    "allowed_origins": [
+      "chrome-extension://your-extension-id/"
+    ]
+}
+
+
+  
